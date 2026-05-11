@@ -25,4 +25,14 @@ class TestController extends Controller
         'data' => $simpleData
     ]);
    }
+
+   public function createPost(Request $request){
+
+    $data = $request->all();
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data received successfully',
+        'data' => $data
+    ]);
+   }
 }

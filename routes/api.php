@@ -23,3 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', [App\Http\Controllers\TestController::class, 'index']);
+Route::post('/test', [App\Http\Controllers\TestController::class, 'createPost']);
+
