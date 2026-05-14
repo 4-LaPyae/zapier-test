@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TestController extends Controller
 {
@@ -35,4 +36,22 @@ class TestController extends Controller
         'data' => $data
     ]);
    }
+
+    public function testWebhookCallback(Request $request, string $event_id, string $api_collection_name){
+     $data = $request->all();
+
+        Log::info('Webhook callback received', [
+            'event_id' => $event_id,
+            'api_collection_name' => $api_collection_name,
+            'data' => $data,
+        ]);
+
+     return response()->json([
+          'status' => 'success',
+          'message' => 'Webhook callback received successfully',
+          'event_id' => $event_id,
+          'api_collection_name' => $api_collection_name,
+          'data' => $data
+     ]);
+    }
 }
