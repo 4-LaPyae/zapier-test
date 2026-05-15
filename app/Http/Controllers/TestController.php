@@ -45,6 +45,10 @@ class TestController extends Controller
             'api_collection_name' => $api_collection_name,
             'api_job_uuid' => $request->input('api_job_uuid'),
             'api_job_uuid-2' => $data->api_job_uuid ?? null,
+            'api_job_uuid-3' => $request->get('api_job_uuid'),
+            'api_job_uuid-4' => $request->query('api_job_uuid'),
+            'api_job_uuid-5' => $request->input('data.api_job_uuid'),
+            'request_body' => $request->body(),
             'data' => $data,
         ]);
 
