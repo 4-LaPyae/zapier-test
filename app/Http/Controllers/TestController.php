@@ -44,7 +44,8 @@ class TestController extends Controller
             'event_id' => $event_id,
             'api_collection_name' => $api_collection_name,
             'api_job_uuid' => $request->input('api_job_uuid'),
-            'data' => $data,
+            'api_job_uuid-2' => $data['api_job_uuid'] ?? null,
+            'data' => $data['data'] ?? null,
         ]);
 
      return response()->json([
