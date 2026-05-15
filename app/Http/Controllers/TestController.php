@@ -43,6 +43,7 @@ class TestController extends Controller
         Log::info('Webhook callback received', [
             'event_id' => $event_id,
             'api_collection_name' => $api_collection_name,
+            'api_job_uuid' => $request->input('api_job_uuid'),
             'data' => $data,
         ]);
 
@@ -51,6 +52,7 @@ class TestController extends Controller
           'message' => 'Webhook callback received successfully',
           'event_id' => $event_id,
           'api_collection_name' => $api_collection_name,
+          'api_job_uuid' => $request->input('api_job_uuid'),
           'data' => $data
      ]);
     }
