@@ -38,18 +38,17 @@ class TestController extends Controller
    }
 
     public function testWebhookCallback(Request $request, string $event_id, string $api_collection_name){
-     $data = $request->all();
+
+        $data = $request->all();
 
         Log::info('Webhook callback received', [
+            'type' => var_dump($request->all()),
             'event_id' => $event_id,
             'api_collection_name' => $api_collection_name,
             'api_job_uuid' => $request->input('api_job_uuid'),
-            'api_job_uuid-2' => $data->api_job_uuid ?? null,
-            'api_job_uuid-3' => $request->get('api_job_uuid'),
-            'api_job_uuid-4' => $request->query('api_job_uuid'),
-            'api_job_uuid-5' => $request->input('data.api_job_uuid'),
-           // 'request_body' => $request->body(),
             'data' => $data,
+            'php data' => json_decode(file_get_contents('php://input'))
+
         ]);
 
      return response()->json([
@@ -58,7 +57,8 @@ class TestController extends Controller
           'event_id' => $event_id,
           'api_collection_name' => $api_collection_name,
           'api_job_uuid' => $request->input('api_job_uuid'),
-          'data' => $data
+          'data' => $data,
+        'php data' => json_decode(file_get_contents('php://input'))
      ]);
     }
 }
