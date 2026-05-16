@@ -40,6 +40,9 @@ class TestController extends Controller
     public function testWebhookCallback(Request $request, string $event_id, string $api_collection_name){
 
         $data = $request->all();
+        $json = file_get_contents('php://input');
+
+	        $data_3 = json_decode($json, true);
 
         Log::info('Webhook callback received', [
             'type' => var_dump($request->all()),
@@ -47,18 +50,23 @@ class TestController extends Controller
             'api_collection_name' => $api_collection_name,
             'api_job_uuid' => $request->input('api_job_uuid'),
             'data' => $data,
-            'php data' => json_decode(file_get_contents('php://input'))
+            'php data' => json_decode(file_get_contents('php://input')),
+		'php data 2' => file_get_contents('php://input'),
+		'php data 3' => $data_3,
+	'php data 4' => $data_3[0]['api_job_uuid']
 
         ]);
 
      return response()->json([
           'status' => 'success',
-          'message' => 'Webhook callback received successfully',
+          'message' => 'Webhook callback received successfully.',
           'event_id' => $event_id,
           'api_collection_name' => $api_collection_name,
           'api_job_uuid' => $request->input('api_job_uuid'),
           'data' => $data,
-        'php data' => json_decode(file_get_contents('php://input'))
+        'php data' => json_decode(file_get_contents('php://input')),
+	'php data 2' => file_get_contents('php://input'),
+	'php data 3' => $data_3
      ]);
     }
 }
