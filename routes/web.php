@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::post('zapier/callback/{event_id}/{api_collection_name}', [TestController::class, 'testWebhookCallback']);
+Route::get('/test', [TestController::class, 'index']);

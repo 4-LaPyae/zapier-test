@@ -3,27 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TestController extends Controller
 {
    public function index(){
-    $simpleData = [
-        ['name' => 'John Doe', 'email' => 'john.doe@example.com'],
-        ['name' => 'Jane Smith', 'email' => 'jane.smith@example.com'],
-        ['name' => 'Mike Johnson', 'email' => 'mike.johnson@example.com'],
-        ['name' => 'Emily Davis', 'email' => 'emily.davis@example.com'],
-        ['name' => 'Chris Brown', 'email' => 'chris.brown@example.com'],
-        ['name' => 'Sarah Wilson', 'email' => 'sarah.wilson@example.com'],
-        ['name' => 'David Miller', 'email' => 'david.miller@example.com'],
-        ['name' => 'Laura Taylor', 'email' => 'laura.taylor@example.com'],
-        ['name' => 'Daniel Anderson', 'email' => 'daniel.anderson@example.com'],
-        ['name' => 'Olivia Thomas', 'email' => 'olivia.thomas@example.com'],
-    ];
+
+    $dta = DB::table('olympic_winners')->limit(10)->get();
+
     return response()->json([
         'status' => 'success',
         'message' => 'Data retrieved successfully',
-        'data' => $simpleData
+        'data' => $dta
     ]);
    }
 
