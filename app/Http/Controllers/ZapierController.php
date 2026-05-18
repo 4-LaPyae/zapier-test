@@ -24,7 +24,8 @@ class ZapierController extends Controller
     return response()->json([
         'id' => $organizer['id'],
         'name' => $organizer['name'],
-        'email' => $organizer['email']
+        'email' => $organizer['email'],
+        'api_key' => $apiKey
     ]);
     }
     public function getFields (){
