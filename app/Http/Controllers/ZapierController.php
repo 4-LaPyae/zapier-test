@@ -10,6 +10,17 @@ class ZapierController extends Controller
 
     $apiKey = $request->header('Authorization');
 
+    if (!$apiKey) {
+        return response()->json([
+            'message' => 'API key is missing'
+        ], 400);
+    }
+    if($apiKey !== 'test_api_key_12345'){
+        return response()->json([
+            'message' => 'Invalid API key'
+        ], 401);
+    }
+
     $organizer = [
         'id' => 1,
         'name' => 'John Doe',
