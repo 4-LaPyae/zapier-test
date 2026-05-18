@@ -25,3 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/test', [App\Http\Controllers\TestController::class, 'index']);
 Route::post('/test', [App\Http\Controllers\TestController::class, 'createPost']);
 
+Route::get('/me', [App\Http\Controllers\ZapierController::class, 'me']);
+Route::prefix('zapier')->middleware('auth:sanctum')->group(function () {
+    Route::get('/fields', [App\Http\Controllers\ZapierController::class, 'getFields']);
+    Route::get('/entrants', [App\Http\Controllers\ZapierController::class, 'getEntrants']);
+    Route::get('/me', [App\Http\Controllers\ZapierController::class, 'me']);
+});
+
