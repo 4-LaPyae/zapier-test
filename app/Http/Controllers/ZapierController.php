@@ -8,6 +8,12 @@ class ZapierController extends Controller
 {
     public function me (Request $request){
 
+     return response()->json([
+        'status' => 'success',
+        'message' => 'Authenticated successfully',
+        'request_headers' => $request->headers->all()
+    ]);
+
     $apiKey = $request->header('Authorization');
 
     if (!$apiKey) {
