@@ -27,34 +27,31 @@ class TestController extends Controller
 
     public function testWebhookCallback(Request $request, string $event_id, string $api_collection_name){
 
-        $data = $request->all();
         $json = file_get_contents('php://input');
+	    $data = json_decode($json, true);
 
-	        $data_3 = json_decode($json, true);
+        $method = $_SERVER['REQUEST_METHOD']; // "GET", "POST", etc.
 
-        Log::info('Webhook callback received', [
-            'type' => var_dump($request->all()),
+        $zapier_Key = $_SERVER['HTTP_X_ZAPIER_KEY'] ?? null;
+
+        $api_job_uuid = $data[0]['api_job_uuid'] ?? null;
+
+        $zapier_data = [
+            'api_job_uuid' => $api_job_uuid,
+            'event_id' => $event_id,
+            'response_data' => json_encode($data),
+        ];
+
+        DB::table('zapier_test')->insert($zapier_data);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Webhook received successfully',
             'event_id' => $event_id,
             'api_collection_name' => $api_collection_name,
-            'api_job_uuid' => $request->input('api_job_uuid'),
+            'method' => $method,
+            'zapier_key' => $zapier_Key,
             'data' => $data,
-            'php data' => json_decode(file_get_contents('php://input')),
-		'php data 2' => file_get_contents('php://input'),
-		'php data 3' => $data_3,
-	'php data 4' => $data_3[0]['api_job_uuid']
-
         ]);
-
-     return response()->json([
-          'status' => 'success',
-          'message' => 'Webhook callback received successfully.',
-          'event_id' => $event_id,
-          'api_collection_name' => $api_collection_name,
-          'api_job_uuid' => $request->input('api_job_uuid'),
-          'data' => $data,
-        'php data' => json_decode(file_get_contents('php://input')),
-	'php data 2' => file_get_contents('php://input'),
-	'php data 3' => $data_3
-     ]);
     }
 }
