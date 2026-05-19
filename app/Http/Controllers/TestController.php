@@ -10,9 +10,10 @@ class TestController extends Controller
 {
    public function index(){
 
-    $data = DB::table('olympic_winners')->limit(10)->get()->toArray();
+    // $data = DB::table('olympic_winners')->limit(10)->get()->toArray();
 
-    return view('home', ['data' => $data]);
+    //return view('home', ['data' => $data]);
+    return view('home');
    }
 
    public function createPost(Request $request){

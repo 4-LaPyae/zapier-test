@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QueueTestController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,6 @@ Route::get('/', function () {
 
 Route::post('zapier/callback/{event_id}/{api_collection_name}', [TestController::class, 'testWebhookCallback']);
 Route::get('/test', [TestController::class, 'index']);
+Route::post('/queue-test/email', [QueueTestController::class, 'sendQueuedEmail']);
+Route::post('/queue-test/zapier', [QueueTestController::class, 'sendZapierWebhook']);
 

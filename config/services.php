@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'zapier' => [
+        'webhook_url' => env('ZAPIER_WEBHOOK_URL'),
+    ],
+
 ];
